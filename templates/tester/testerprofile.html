@@ -1,0 +1,145 @@
+{% extends 'tester/testerhome.html' %}
+
+{% load static %}
+
+{% block title %}
+	Profile
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+	<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+	<h2 class="page-header">{{user.username}} Profile</h2>
+	<form class="form-group" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% if user.pic %}
+		<img src="{{ user.pic }}" alt="" class="avatar mx-auto d-block">
+		{% else %}
+		<img src="{% static 'img/no-image.jpg' %}" alt="" class="avatar mx-auto d-block">
+		{% endif %}
+		<table class="table table-borderless">
+			<tr>
+				<td>
+					<label for="pic">Profile Image</label>					
+				</td>
+				<td>
+					<div class="input-group">
+						<input type="file" name="pic" value="{{user.pic}}" class="form-control" autocomplete="off">
+						<input type="button" name="upload_pic" value="Upload Photo" class="btn btn-primary" autocomplete="off">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="name">Full Name</label>					
+				</td>
+				<td>
+					{% if user.name is None %}
+					<input type="text" name="name" placeholder="Full Name" class="form-control" maxlength="150" autocomplete="off">
+					{% else %}
+					<input type="text" name="name" value="{{user.name}}" class="form-control" maxlength="150" autocomplete="off">
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="username">Username</label>
+				</td>
+				<td>
+					<input type="text" name="username" value="{{user.username}}" placeholder="username" readonly required="required" class="form-control" maxlength="100" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="usertype">User Type</label>
+				</td>
+				<td>
+					<select id = "myList" name="usertype" readonly required="required" class="custom-select dropdown-primary">
+						<option value = "None" selected readonly hidden>
+						{% if user.is_superuser %}
+							Admin
+						{% elif user.is_staff %}
+							Developer
+						{% elif not user.is_staff %}
+							Tester
+						{% endif %}
+						</option>
+						<option value = "dev">Developer</option>
+						<option value = "tester">Tester</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="email">E-mail</label>
+				</td>
+				<td>
+					<input type="email" name="email" value="{{user.email}}" placeholder="email" required="required" class="emailinput form-control" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="password">Password</label>
+				</td>
+				<td>
+					<a name="password" id="password-change" required="required" class="form-control btn btn-primary" href="../changepassword">Change Password</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="dob">Date of Birth</label>
+				</td>
+				<td>
+					<div class="input-group">
+					{% if user.dob is not None %}
+					<input type="text" name="dob" value="{{user.dob}}" readonly class="form-control">
+					{% else %}
+						<input type="date" name="dob" value="{{ user.dob | date:'Y-m-d' }}" class="form-control">
+					</div>
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="gender">Gender</label>
+				</td>
+				<td>
+					{% if user.gender is not None %}
+					<input type="text" name="gender" value="{{user.gender}}" readonly class="form-control">
+					{% else %}
+					<select id = "myList" name="gender" class="custom-select dropdown-primary">
+						<option value = "" selected hidden>Select Gender</option>
+						<option value = "Male">Male<i class="fa fa-male"></i></option>
+						<option value = "Female">Female<i class="fa fa-female"></i></option>
+						<option value = "Other">Other<i class="fa fa-transgender-alt"></i></option>
+					</select>
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="mobile">Mobile No.</label>
+				</td>
+				<td>
+					{% if user.mobile is None %}
+					<input type="tel" name="mobile" placeholder="10 digit mobile number" class="form-control">
+					{% else %}
+					<input type="tel" name="mobile" value="{{userdata.mobile}}" class="form-control">
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input type="submit" class="form-btn btn btn-primary btn-block" value="Update">
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+{% else %}
+	<meta http-equiv="refresh" content="0; url={% url 'home' %}">
+{% endif %}
+{% endblock %}

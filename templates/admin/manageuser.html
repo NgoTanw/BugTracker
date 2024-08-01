@@ -1,0 +1,62 @@
+{% extends 'admin/adminhome.html' %}
+
+{% load static %}
+
+{% block title %}
+	Manage Users
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+<h2 class="page-header text-justified">Manage Users</h2>
+
+<div class="container-fluid">
+	<table  data-toggle="table" data-pagination="true" data-search="true" class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Name</th>
+				<th>Username</th>
+				<th>Email</th>
+				<th>User Type</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody id="myTable">
+			{% for userdata in userdata %}
+				{% if not userdata.is_superuser %}
+				<tr>
+					<td id="name">
+						{% if userdata.name is None %}
+							<div class="text-center">-</div>
+						{% else %}
+						{{userdata.name}}
+						{% endif %}
+					</td>
+					<td id="username">{{userdata.username}}</td>
+					<td id="email">{{userdata.email}}</td>
+					<td id="usertype">
+						{% if not userdata.is_superuser %}
+							{% if userdata.is_staff %}
+								Developer
+							{% else %}
+								Tester
+							{% endif %}
+						{% else %}
+							Administrator
+						{% endif %}
+					</td>
+					<td><a href="../edituser/uuid={{ userdata.id }}">Edit</a> | <a href="../deleteuser/{{userdata.id}}">Delete</a></td>
+				</tr>
+				{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+
+{% else %}
+	<meta http-equiv="refresh" content="0; url={% url 'home' %}">
+{% endif %}
+{% endblock %}

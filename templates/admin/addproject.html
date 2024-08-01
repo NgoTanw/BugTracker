@@ -1,0 +1,95 @@
+{% extends 'admin/adminhome.html' %}
+
+{% load static %}
+
+{% block title %}
+	New Project
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+	<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+	<h2 class="page-header text-justified">Add New Project</h2>
+	<form class="form-group" id="addProject" method="post">
+		{% csrf_token %}
+		<table class="table table-borderless">
+			<tr>
+				<td><label for="ptitle">Title</label></td>
+				<td><input type="text" name="ptitle" placeholder="Title" required="required" class="form-control" maxlength="100" autocomplete="off"></td>
+			</tr>
+			<tr>
+				<td><label for="ptype">Type</label></td>
+				<td>
+					<select id = "typeList" name="ptype" required="required" class="custom-select dropdown-primary">
+						<option value = "none" selected disabled hidden>Select Type</option>
+	 					<option value = "Basic">Basic</option>
+	 					<option value = "Mobile App">Mobile App</option>
+	 					<option value = "Management">Management</option>
+	 					<option value = "Service">Service</option>
+						<option value = "Misc">Miscellaneous</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="manager">Manager</label></td>
+				<td>
+					<select id = "managerList" name="manager" required="required" class="custom-select dropdown-primary">
+						<option value = "none" selected disabled hidden>Select Manager</option>
+	 					{% for userdata in userdata %}
+	 					{% if not userdata.is_superuser %}
+	 					{% if userdata.is_staff %}
+	 						<option value = "{{userdata.username}}">{{userdata.username}}</option>
+	 					{% endif %}
+	 					{% endif %}
+	 					{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="frontend">FrontEnd</label></td>
+				<td><input type="text" name="frontend" placeholder="FrontEnd" required="required" class="form-control" maxlength="100" autocomplete="off"></td>
+			</tr>
+			<tr>
+				<td><label for="backend">BackEnd</label></td>
+				<td><input type="text" name="backend" placeholder="BackEnd" required="required" class="form-control" maxlength="100" autocomplete="off"></td>
+			</tr>
+			<tr>
+				<td><label for="client">Client</label></td>
+				<td><input type="text" name="client" placeholder="Client" required="required" class="form-control" maxlength="100" autocomplete="off"></td>
+			</tr>
+			<tr>
+				<td><label for="startdate">Start Date</label></td>
+				<td><input type="date" name="startdate" required="required" class="form-control" maxlength="100" autocomplete="off"></td>
+			</tr>
+			<tr>
+				<td><label for="pstatus">Status</label></td>
+				<td>
+					<select id = "pstatus" name="pstatus" required="required" class="custom-select dropdown-primary">
+						<option value = "none" selected disabled hidden>Status</option>
+						<option value = "Pending">Pending</option>
+	 					<option value = "In Process">In Process</option>
+						<option value = "Qa Assigned">QA Assigned</option>
+						<option value = "UAT Release">UAT Release</option>
+						<option value = "Live">Live</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="pdescription">Description</label></td>
+				<td><textarea class="form-control" placeholder="Add a description" id="pdescription" name="pdescription" rows="3" autocomplete="off"></textarea></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="mx-auto">
+					<input type="submit" class="btn btn-primary" value="Add Project">
+					<input type="reset" class="btn btn-secondary" value="Reset">
+				</td>
+			</tr>
+		</table>
+	</form>
+
+{% else %}
+	<meta http-equiv="refresh" content="0; url={% url 'home' %}">
+{% endif %}
+{% endblock %}

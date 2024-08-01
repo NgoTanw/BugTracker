@@ -1,0 +1,57 @@
+{% extends 'admin/adminhome.html' %}
+
+{% load static %}
+
+{% block title %}
+	Manage Bugs
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+<h2 class="page-header text-justified">Manage Bugs</h2>
+
+<div class="container-fluid">
+	<table  data-toggle="table" data-pagination="true" data-search="true" class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Type</th>
+				<th>Technology</th>
+				<th>Status</th>
+				<th>Solution</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody id="myTable">
+			{% for bug in bugs %}
+			{% if bug.approve %}
+			<tr>
+				<td>{{bug.id}}</td>
+				<td>{{bug.btitle}}</td>
+				<td>{{bug.btype}}</td>
+				<td>{{bug.tech}}</td>
+				<td>{{bug.bstatus}}</td>
+				<td>
+					{% for solutions in solutions %}
+					{% if solutions.bug_id == bug.id %}
+					<a href="../solutionlist/bugId={{bug.id}}">List Solutions</a>
+					{% else %}
+					Unsolved
+					{% endif %}
+					{% endfor %}
+				</td>
+				<td><a href="../editbug/bugId={{bug.id}}">Edit</a> | <a href="../deletebug/{{bug.id}}">Delete</a></td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+{% else %}
+	<meta http-equiv="refresh" content="0; url={% url 'home' %}">
+{% endif %}
+{% endblock %}

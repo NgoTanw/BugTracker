@@ -1,0 +1,139 @@
+a{
+    font-family: calibri;
+    font-size: 13px;
+    color: #2191ff;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color: #282828;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: calibri;
+}
+h1{
+    text-indent: 15px;
+    font-size:44px;
+    font-family: Calibri, sans-serif;
+}
+h2{
+    margin-top: 50px;
+    text-align: center;
+    color: honeydew;
+}
+p{
+    font-size: 13px;
+    color: white;
+    text-indent: 10px;
+}
+label{
+    color: honeydew;
+}
+.container{
+    height: 550px;
+    width: 550px;
+    margin-top: 50px;
+}
+.nav-item{
+    margin-right: 20px;
+}
+.dropdown-item{
+    color: white;
+}
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+.carousel{
+    margin-top: 80px;
+}
+.navbar{
+    padding: 0px;
+}
+.form-container{
+    border-radius: 15px;
+    border: honeydew 5px;
+}
+.header-container {
+    border-radius: 15px 15px 0px 0px;
+    background-color:honeydew;
+    text-align:center;
+    padding:35px 40px 19px 40px;
+}
+.form-group{
+    padding: 40px 30px 30px 40px;
+}
+.input-group{
+    margin-bottom: 20px;
+    border: 1px solid;
+}
+.input-group-addon{
+    background: transparent;
+    border-radius: 0px;
+    border-bottom: 1px white;
+    margin: 5px 5px;
+    width: 20px;
+    font-size: 18px;
+    color: grey;
+}
+.form-control{
+    border-radius: 0px;
+    border: 0px;
+    border-bottom:1px;
+    padding: 15px;
+    color: black;
+    font-size: 15px;
+}
+.btn-block{
+    background-color: #2191ff;
+    border-radius: 0px;
+    width: 100%;
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.btn-block:hover {
+  border: 1px solid #2191ff;
+  color: white;
+}
+.btn-group{
+    background: transparent;
+    color: white;
+}
+.btn-link{
+    font-size: 10px;
+    color: white;
+}
+.btn-link:hover {
+    font-size: 12px;
+    color: white;
+}
+#user-icon{
+    max-height: 150px;
+    border-radius: 50%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.contact-container{
+    max-width: 700px;
+    margin-left: 200px;
+    color: black; 
+}
+.common-details{
+    color: black;
+}
+.address-textarea{
+    width: 100%;
+    resize: none;
+    align-content: left;
+}
+.about-container{
+    max-width: 700px;
+    margin-left: 200px;
+    color: black;
+}
+.jumbotron{
+    min-height: 90vh;
+    background-color: lightgrey;
+}

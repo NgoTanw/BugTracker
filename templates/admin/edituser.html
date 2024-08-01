@@ -1,0 +1,129 @@
+{% extends 'admin/adminhome.html' %}
+
+{% load static %}
+
+{% block title %}
+	Edit User Profile
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+	<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+	<h2 class="page-header">Update {{ userdata.username }} Profile</h2>
+	<form class="form-group" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<img src="{{ userdata.pic }}" class="d-block mx-auto">
+		<table class="table table-borderless">
+			<tr>
+				<td>
+					<label for="pic">Profile Image</label>					
+				</td>
+				<td>
+					<input type="file" name="pic" placeholder="{{userdata.pic}}" class="form-control" autocomplete="off">					
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="name">Full Name</label>					
+				</td>
+				<td>
+					{% if userdata.name is None %}
+					<input type="text" name="name" placeholder="Full Name" class="form-control" maxlength="150" autocomplete="off">
+					{% else %}
+					<input type="text" name="name" value="{{userdata.name}}" class="form-control" maxlength="150" autocomplete="off">
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="username">Username</label>
+				</td>
+				<td>
+					<input type="text" name="username" value="{{userdata.username}}" required="required" class="form-control" maxlength="100" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="usertype">User Type</label>
+				</td>
+				<td>
+					<select id = "myList" name="usertype" required="required" class="custom-select dropdown-primary">
+						{% if userdata.is_superuser %}
+						<option value = "None" selected hidden>Admin</option>
+						{% elif userdata.is_staff %}
+						<option value = "None" selected hidden>Developer</option>
+						{% elif not userdata.is_staff %}
+						<option value = "None" selected hidden>Tester</option>
+						{% endif %}
+						<option value = "Developer">Developer</option>
+						<option value = "Tester">Tester</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="email">E-mail</label>
+				</td>
+				<td>
+					<input type="email" name="email" value="{{userdata.email}}" required="required" class="emailinput form-control" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="dob">Date of Birth</label>
+				</td>
+				<td>
+					<div class="input-group">
+					{% if userdata.dob is None %}
+					<input type="date" name="dob" class="form-control">
+					{% else %}
+						<input type="date" name="dob" value="{{ userdata.dob | date:'Y-m-d' }}" class="form-control">
+					</div>
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="gender">Gender</label>
+				</td>
+				<td>
+					{% if userdata.gender is not None %}
+					<input type="text" name="gender" value="{{userdata.gender}}" class="form-control">
+					{% else %}
+					<select id = "myList" name="gender" class="custom-select dropdown-primary">
+						<option value = "" selected hidden>Select Gender</option>
+						<option value = "Male">Male<i class="fa fa-male"></i></option>
+						<option value = "Female">Female<i class="fa fa-female"></i></option>
+						<option value = "Other">Other<i class="fa fa-transgender-alt"></i></option>
+					</select>
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="mobile">Mobile No.</label>
+				</td>
+				<td>
+					{% if userdata.mobile is None %}
+					<input type="tel" name="mobile" placeholder="10 digit mobile number" class="form-control">
+					{% else %}
+					<input type="tel" name="mobile" value="{{userdata.mobile}}" class="form-control">
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="mx-auto">
+					<input type="submit" class="form-btn btn btn-primary" value="Update">
+					<input type="button" class="btn btn-secondary" onclick="history.back()" value="Cancel">
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+{% else %}
+	<meta http-equiv="refresh" content="0; url={% url 'home' %}">
+{% endif %}
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+	Contact Us
+{% endblock %}
+
+{% block content %}
+<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+<div class="contact-container">
+	<div class="jumbotron">
+	<h1 class="display-4">Contact Us</h1>
+	<table class="lead table table-borderless">
+		<tr>
+			<td>
+				<label class="common-details" for="phone">Phone</label>
+			</td>
+			<td>
+				<input type="tel" name="phone" class="contact-inputs form-control" value="0123456789" readonly>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label class="common-details" for="email">Email</label>
+			</td>
+			<td>
+				<input type="email" name="email" class="contact-inputs form-control" value="example@example.com" readonly>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label class="common-details" for="address">Address</label>
+			</td>
+			<td>
+				<textarea class="form-control address-textarea" name="address" readonly rows="8">
+					Building
+					Locality
+					City
+					District
+					State
+					Country
+					Pin
+				</textarea>
+			</td>
+		</tr>
+	</table>
+	</div>
+</div>
+{% endblock %}

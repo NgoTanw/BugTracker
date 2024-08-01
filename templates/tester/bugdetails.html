@@ -1,0 +1,56 @@
+{% extends 'tester/testerhome.html' %}
+
+{% load static %}
+
+{% block title %}
+	Bug Details
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+<h2 class="page-header text-justified">Bug #{{bugs.id}} Details</h2>
+<div class="container-fluid">
+	<div class="container">
+		<table class="table table-borderless" style="width:50%; margin-top:50px;">
+			<tr>
+				<td><label for="btitle">Title</label></td>
+				<td>{{bugs.btitle}}</td>
+			</tr>
+			<tr>
+				<td><label for="project">Project</label></td>
+				<td>{{bugs.project}}</td>
+			</tr>
+			<tr>
+				<td><label for="btype">Type</label></td>
+				<td>{{bugs.btype}}</td>
+			</tr>
+			<tr>
+				<td><label for="tech">Technology</label></td>
+				<td>{{bugs.tech}}</td>
+			</tr>
+			<tr>
+				<td><label for="bugdescription">Description</label></td>
+				<td>{{bugs.bdescription}}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="bstatus">Status</label></td>
+				<td>{{bugs.bstatus}}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<a href="../solutionlist/bugId={{bugs.id}}" class="btn btn-primary">Solutions</a>
+					<input type="button" class="btn btn-secondary" onclick="history.back()" value="Close">
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+{% else %}
+	<meta http-equiv="refresh" content="0; url={% url 'home' %}">
+{% endif %}
+{% endblock %}

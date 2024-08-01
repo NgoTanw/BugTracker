@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+	{% block title %}
+		Signup
+	{% endblock %}
+
+{% block content %}
+{% if not user.is_authenticated%}
+
+<div class="container">
+	<div class="form-container border border-top-0">
+		<div class="header-container">
+			<h1>Registration</h1>
+		</div>
+	<form class="form-group" id="reg" method="post">
+		{% csrf_token %}
+		<div class="">
+			<label for="email">E-mail</label>
+			<div class="input-group">
+				<input type="email" name="email" placeholder="E-mail" required="required" class="emailinput form-control" autocomplete="off">
+				<span class="input-group-addon"><span class="fas fa-envelope"></span></span>
+			</div>
+		</div>
+		<div class="">
+			<label for="username">Username</label>
+			<div class="input-group">
+				<input type="text" name="username" placeholder="Username" required="required" class="form-control" maxlength="100" autocomplete="off">
+				<span class="input-group-addon"><span class="fas fa-user"></span></span>
+			</div>
+		</div>
+		<div class="">
+			<label for="usertype">User Type</label>
+			<div class="input-group">
+				<select id = "myList" name="usertype" required="required" class="custom-select dropdown-primary">
+					<option value = "none" selected disabled hidden>Select User Type</option>
+ 					<option value = "dev">Developer</option>
+					<option value = "tester">Tester</option>
+				</select>
+				<span class="input-group-addon"><span class="fas fa-user-plus"></span></span>
+			</div>
+		</div>
+		<div class="">
+			<label for="password1">Password</label>
+			<div class="input-group">
+				<input type="password" name="password1" placeholder="Password" required="required" class="form-control">
+				<span class="input-group-addon"><span class="fas fa-key"></span></span>
+			</div>
+		</div>
+		<div class="">
+			<label for="password2">Confirm Password</label>
+			<div class="input-group">
+				<input type="password" name="password2" placeholder="Confirm Password" required="required" class="form-control">
+				<span class="input-group-addon"><span class="fas fa-eye"></span></span>
+			</div>
+		</div>
+		<input type="submit" class="btn btn-block" value="Signup">
+	</form>
+	</div>
+</div>
+{% endif %}
+{% endblock %}

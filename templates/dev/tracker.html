@@ -1,0 +1,52 @@
+{% extends 'dev/devhome.html' %}
+
+{% load static %}
+
+{% block title %}
+	Bug Tracker
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+<div class="container-fluid">
+	<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+	<h2 class="page-header">Track Bugs</h2>
+	<table  data-toggle="table" data-pagination="true" data-search="true" class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Title</th>
+				<th>Type</th>
+				<th>Project</th>
+				<th>Technology</th>
+				<th>Status</th>
+				<th>Description</th>
+				<th>Solution</th>
+			</tr>
+		</thead>
+		<tbody id="myTable">
+			{% for bug in bugs %}
+			{% if bug.approve %}
+			{% if not bug.solution.exists %}
+			<tr>
+				<td><a href="../bugdetails/bugId={{bug.id}}">{{bug.btitle}}</a></td>
+				<td>{{bug.btype}}</td>
+				<td>{{bug.project}}</td>
+				<td>{{bug.tech}}</td>
+				<td>{{bug.bstatus}}</td>
+				<td>{{bug.bdescription}}</td>
+				<td>
+					<a href="../addsolution/bugId={{bug.id}}">Post Solution</a>
+				</td>
+			</tr>
+			{% endif %}
+			{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+{% else %}
+	<meta http-equiv="refresh" content="0; url={% url 'home' %}">
+{% endif %}
+{% endblock %}

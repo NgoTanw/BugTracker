@@ -1,0 +1,72 @@
+{% extends 'tester/testerhome.html' %}
+
+{% load static %}
+
+{% block title %}
+	Report Bug
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+<h2 class="page-header text-justified">Report Bugs</h2>
+<div class="container-fluid">
+	<form class="form-group" id="addBug" method="post">
+		{% csrf_token %}
+		<table class="table table-borderless">
+			<tr>
+				<td><label for="btitle">Title</label></td>
+				<td><input type="text" name="btitle" placeholder="Title" required="required" class="form-control" maxlength="100" autocomplete="off"></td>
+			</tr>
+			<tr>
+				<td><label for="project">Select Project</label></td>
+				<td>
+					<select id = "projectList" name="project" required="required" class="custom-select dropdown-primary">
+						<option value = "none" selected disabled hidden>Select Project</option>
+						{% for projects in projects %}
+	 					<option value = "{{projects.ptitle}}">{{projects.ptitle}}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="tech">Technology</label></td>
+				<td>
+					<select id = "typeList" name="tech" required="required" class="custom-select dropdown-primary">
+						<option value = "none" selected disabled hidden>Select Type</option>
+	 					{% for projects in projects %}
+	 					<option value = "{{projects.frontend}}">{{projects.frontend}}</option>
+						<option value = "{{projects.backend}}">{{projects.backend}}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="btype">Type</label></td>
+				<td>
+					<select id = "typeList" name="btype" required="required" class="custom-select dropdown-primary">
+						<option value = "none" selected disabled hidden>Select Type</option>
+	 					<option value = "Bug">Bug</option>
+						<option value = "Feature">Feature</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="bugdescription">Description</label></td>
+				<td><textarea class="form-control" placeholder="Add a description" id="bugdescription" name="bugdescription" rows="3" autocomplete="off"></textarea></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="mx-auto">
+					<input type="submit" class="form-btn btn btn-primary" value="Report">
+					<input type="reset" class="form-btn btn btn-secondary" value="Reset">
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+{% else %}
+	<meta http-equiv="refresh" content="0; url={% url 'home' %}">
+{% endif %}
+{% endblock %}

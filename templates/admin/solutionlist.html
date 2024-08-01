@@ -1,0 +1,44 @@
+{% extends 'admin/adminhome.html' %}
+
+{% load static %}
+
+{% block title %}
+	Solution List
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+<div class="container-fluid">
+	<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+	<h2 class="page-header">Solutions for Bug #{{bugs.id}}</h2>
+	<table  data-toggle="table" data-pagination="true" data-search="true" class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Bug ID</th>
+				<th>Type</th>
+				<th>Technology</th>
+				<th>Project</th>
+				<th>Solution</th>
+			</tr>
+		</thead>
+		<tbody id="myTable">
+			{% for solutions in solutions %}
+			<tr>
+				<td>#{{solutions.bug_id}}</td>
+				<td>{{bugs.btype}}</td>
+				<td>{{bugs.tech}}</td>
+				<td>{{bugs.project}}</td>
+				<td>
+					<a href="../solution/bugId={{solutions.bug_id}}">View Solution</a> | <a href="../deletesolution/{{solutions.bug_id}}">Delete</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+{% else %}
+	<meta http-equiv="refresh" content="0; url={% url 'home' %}">
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+	OTP
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="form-container border border-top-0 text-center">
+	<div class="header-container">
+		<h6>OTP</h6>
+	</div>
+	<form class="form-group" method="POST">
+		{% csrf_token %}
+		<input type="text" name="otp" autocomplete="off" autofocus>
+		<input type="submit" class="btn btn-success" value="Verify">
+	</form>
+</div>
+</div>
+{% endblock %}

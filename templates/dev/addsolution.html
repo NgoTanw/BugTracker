@@ -1,0 +1,60 @@
+{% extends 'dev/devhome.html' %}
+
+{% load static %}
+
+{% block title %}
+	Add Solution
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+<a href="javascript:history.back()"><span class="go-back fas fa-chevron-left">Go Back</span></a>
+<h2 class="page-header text-justified">Add Solution</h2>
+<div class="container-fluid">
+	<form class="form-group" id="addBug" method="post">
+		{% csrf_token %}
+		<table class="table table-borderless">
+			<tr>
+				<td><label for="btitle">Title</label></td>
+				<td><input type="text" name="btitle" placeholder="Title" value="{{bugs.btitle}}" required="required" class="form-control" maxlength="100" autocomplete="off" readonly></td>
+			</tr>
+			<tr>
+				<td><label for="project">Select Project</label></td>
+				<td><input type="text" name="project" placeholder="Project" value="{{bugs.project}}" required="required" class="form-control" maxlength="100" autocomplete="off" readonly></td>
+			</tr>
+			<tr>
+				<td><label for="btype">Type</label></td>
+				<td><input type="text" name="btype" placeholder="Type" value="{{bugs.btype}}" required="required" class="form-control" maxlength="100" autocomplete="off" readonly></td>
+			</tr>
+			<tr>
+				<td><label for="tech">Technology</label></td>
+				<td><input type="text" name="tech" placeholder="Technology" value="{{bugs.tech}}" required="required" class="form-control" maxlength="100" autocomplete="off" readonly></td>
+			</tr>
+			<tr>
+				<td><label for="bugdescription">Description</label></td>
+				<td><textarea class="form-control" placeholder="Add a description" id="bugdescription" name="bugdescription" rows="3" autocomplete="off" readonly>{{bugs.bdescription}}</textarea></td>
+			</tr>
+			<tr>
+				<td><label for="bstatus">Status</label></td>
+				<td><input type="text" name="bstatus" placeholder="Status" value="{{bugs.bstatus}}" required="required" class="form-control" maxlength="100" autocomplete="off" readonly></td>
+			</tr>
+			<tr>
+				<td><label for="solution">Solution</label></td>
+				<td><textarea class="form-control" placeholder="Add Solution" value="{{bugs.solution}}" id="solution" name="solution" rows="10" autocomplete="off"></textarea></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="mx-auto">
+					<input type="submit" class="form-btn btn btn-primary" value="Post Solution">
+					<input type="button" class="form-btn btn btn-secondary" onclick="history.back()" value="Cancel">
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+{% else %}
+	<meta http-equiv="refresh" content="0; url={% url 'home' %}">
+{% endif %}
+{% endblock %}
